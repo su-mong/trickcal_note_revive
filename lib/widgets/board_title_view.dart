@@ -15,14 +15,26 @@ class BoardTitleView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentCountState = ref.watch(boardTypeCurrentCountStateProvider((boardNum, boardType)));
+    switch(boardNum) {
+      case 1:
+        final currentCountState = ref.watch(board1stTypeCurrentCountStateProvider(boardType));
+        return _buildWidget(currentCountState);
+      case 2:
+        final currentCountState = ref.watch(board2ndTypeCurrentCountStateProvider(boardType));
+        return _buildWidget(currentCountState);
+      default:
+        final currentCountState = ref.watch(board3rdTypeCurrentCountStateProvider(boardType));
+        return _buildWidget(currentCountState);
+    }
+  }
 
+  Widget _buildWidget(BoardTypeCurrentCountState currentCountState) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
           'assets/images/${boardType.name}.png',
-          height: 28,
+          height: 32,
         ),
         const SizedBox(width: 4),
         Text(
@@ -37,7 +49,7 @@ class BoardTitleView extends ConsumerWidget {
           TextSpan(
             text: '${currentCountState.currentCount}',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 24,
               fontWeight: FontWeight.w700,
             ),
             children: [

@@ -34,10 +34,24 @@ class BoardViewItemStateArguments {
 
 final boardViewItemStateProvider = Provider.family<BoardState, BoardViewItemStateArguments>(
   (ref, arguments) {
-    return ref.watch(board1stDataStateProvider.select(
-      (data) => data[arguments.boardType]![arguments.characterType]!.firstWhere(
-        ((character) => arguments.character == character.character),
-      ).state,
-    ));
+    if(arguments.boardNumber == 1) {
+      return ref.watch(board1stDataStateProvider.select(
+            (data) => data[arguments.boardType]![arguments.characterType]!.firstWhere(
+          ((character) => arguments.character == character.character),
+        ).state,
+      ));
+    } else if(arguments.boardNumber == 2) {
+      return ref.watch(board2ndDataStateProvider.select(
+        (data) => data[arguments.boardType]![arguments.characterType]!.firstWhere(
+          ((character) => arguments.character == character.character),
+        ).state,
+      ));
+    } else {
+      return ref.watch(board3rdDataStateProvider.select(
+        (data) => data[arguments.boardType]![arguments.characterType]!.firstWhere(
+          ((character) => arguments.character == character.character),
+        ).state,
+      ));
+    }
   },
 );

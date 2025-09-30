@@ -2,15 +2,17 @@
 
 트릭컬노트 부활 프로젝트
 
-## Getting Started
+## 남은 작업
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 익명 로그인 -> 구글 로그인 전환(구글 로그인 데이터 없으면 익명 데이터 덮어씌우기)
+- 보드타입 클릭 시 저장 with Debounce 
+- 캐릭터 클릭 시 저장 with Debounce 
+- 데이터 추가 
+- 공명속성 추가 
+- 보드락 추가 
+- 보유캐릭터 변경 기능 
+- 에러 발생 시 처리(토스트메세지?)
+- 모바일 UI 변경 
+- 화면 닫히는 기능
+- 보크 데이터 추가
+- 황크계산기
