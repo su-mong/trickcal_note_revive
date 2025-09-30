@@ -8,10 +8,14 @@ import 'board_title_view.dart';
 import 'character_button.dart';
 
 class BoardView extends StatelessWidget {
+  final int boardNum;
+  final bool isShowName;
   final BoardType boardType;
 
   const BoardView({
     super.key,
+    required this.boardNum,
+    required this.isShowName,
     required this.boardType,
   });
 
@@ -28,7 +32,7 @@ class BoardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BoardTitleView(
-            boardNum: 1,
+            boardNum: boardNum,
             boardType: boardType,
           ),
           const SizedBox(height: 20),
@@ -56,7 +60,7 @@ class BoardView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                ..._gridView(characterType),
+                ..._gridView(characterType, isShowName),
                 const SizedBox(height: 16),
               ],
             ),
@@ -66,36 +70,53 @@ class BoardView extends StatelessWidget {
     );
   }
 
-  List<Widget> _gridView(CharacterType characterType) {
-    final List<BoardViewItemStateArguments> items = BoardConstants.board1st[boardType]![characterType]!.map(
+  List<Widget> _gridView(CharacterType characterType, bool isShowName) {
+    final rowItemCount = isShowName ? 4 : 5;
+
+    final List<BoardViewItemStateArguments> items = (
+        boardNum == 1
+            ? BoardConstants.board1st
+            : boardNum == 2
+            ? BoardConstants.board2nd
+            : BoardConstants.board3rd
+    )[boardType]![characterType]!.map(
       (character) => BoardViewItemStateArguments(
-        boardNumber: 1,
+        boardNumber: boardNum,
         boardType: boardType,
         characterType: characterType,
         character: character
       ),
     ).toList();
 
-    final rowCount = (items.length / 5).ceil();
+    final rowCount = (items.length / rowItemCount).ceil();
     final result = <Widget>[];
 
     for(var i=0; i<rowCount; i++) {
-      final item0 = (i * 5) < items.length ? items[i * 5] : null;
-      final item1 = (i * 5 + 1) < items.length ? items[i * 5 + 1] : null;
-      final item2 = (i * 5 + 2) < items.length ? items[i * 5 + 2] : null;
-      final item3 = (i * 5 + 3) < items.length ? items[i * 5 + 3] : null;
-      final item4 = (i * 5 + 4) < items.length ? items[i * 5 + 4] : null;
+      final item0 = (i * rowItemCount) < items.length ? items[i * rowItemCount] : null;
+      final item1 = (i * rowItemCount + 1) < items.length ? items[i * rowItemCount + 1] : null;
+      final item2 = (i * rowItemCount + 2) < items.length ? items[i * rowItemCount + 2] : null;
+      final item3 = (i * rowItemCount + 3) < items.length ? items[i * rowItemCount + 3] : null;
+
+      BoardViewItemStateArguments? item4;
+      if(isShowName == false) {
+        item4 = (i * rowItemCount + 4) < items.length ? items[i * rowItemCount + 4] : null;
+      }
 
       result.add(
         Row(
+          spacing: 2,
           children: [
             _item(item0),
             _item(item1),
             _item(item2),
             _item(item3),
-            _item(item4),
+            if(isShowName == false)
+              _item(item4),
           ],
         ),
+      );
+      result.add(
+        const SizedBox(height: 4),
       );
     }
 

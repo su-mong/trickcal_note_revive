@@ -1,5 +1,7 @@
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trickcal_note_revive/providers/data/board_data_provider.dart';
 
+import '../../models/board_state.dart';
 import '../../models/board_type.dart';
 
 class TotalStatModel {
@@ -16,84 +18,70 @@ class TotalStatModel {
   });
 }
 
-class TotalStatStateNotifier extends StateNotifier<TotalStatModel> {
-  final BoardType boardType;
+final totalStatStateProvider = Provider.family<TotalStatModel, BoardType>(
+  (ref, boardType) {
+    final (int statCrayon1, int countCrayon1) = ref.watch(
+      board1stDataStateProvider.select(
+        (data) {
+          int statCrayon1 = 0;
+          int countCrayon1 = 0;
+          for(var characterList in data[boardType]!.values) {
+            for(var characterStateModel in characterList) {
+              if(characterStateModel.state == BoardState.active) {
+                statCrayon1 += boardType.increment;
+                countCrayon1++;
+              }
+            }
+          }
 
-  TotalStatStateNotifier._(
-    super.state, {
-    required this.boardType,
-  });
-
-  factory TotalStatStateNotifier.initial(BoardType boardType) {
-    return TotalStatStateNotifier._(
-      boardType: boardType,
-      TotalStatModel(
-        stat: 0,
-        countCrayon1: 0,
-        countCrayon2: 0,
-        countCrayon3: 0,
+          return (statCrayon1, countCrayon1);
+        },
       ),
     );
-  }
 
-  void addStat(int boardNum) {
-    int stat = state.stat;
-    stat += boardType.increment;
+    final (int statCrayon2, int countCrayon2) = ref.watch(
+      board2ndDataStateProvider.select(
+        (data) {
+          int statCrayon2 = 0;
+          int countCrayon2 = 0;
+          for(var characterList in data[boardType]!.values) {
+            for(var characterStateModel in characterList) {
+              if(characterStateModel.state == BoardState.active) {
+                statCrayon2 += boardType.increment;
+                countCrayon2++;
+              }
+            }
+          }
 
-    int crayon1 = state.countCrayon1;
-    int crayon2 = state.countCrayon2;
-    int crayon3 = state.countCrayon3;
-
-    switch(boardNum) {
-      case 1:
-        crayon1++;
-        break;
-      case 2:
-        crayon2++;
-        break;
-      case 3:
-        crayon3++;
-        break;
-    }
-
-    state = TotalStatModel(
-      stat: stat,
-      countCrayon1: crayon1,
-      countCrayon2: crayon2,
-      countCrayon3: crayon3,
+          return (statCrayon2, countCrayon2);
+        },
+      ),
     );
-  }
 
-  void subtractStat(int boardNum) {
-    int stat = state.stat;
-    stat -= boardType.increment;
+    final (int statCrayon3, int countCrayon3) = ref.watch(
+      board3rdDataStateProvider.select(
+        (data) {
+          int statCrayon3 = 0;
+          int countCrayon3 = 0;
+          for(var characterList in data[boardType]!.values) {
+            for(var characterStateModel in characterList) {
+              if(characterStateModel.state == BoardState.active) {
+                statCrayon3 += boardType.increment;
+                countCrayon3++;
+              }
+            }
+          }
 
-    int crayon1 = state.countCrayon1;
-    int crayon2 = state.countCrayon2;
-    int crayon3 = state.countCrayon3;
-
-    switch(boardNum) {
-      case 1:
-        crayon1--;
-        break;
-      case 2:
-        crayon2--;
-        break;
-      case 3:
-        crayon3--;
-        break;
-    }
-
-    state = TotalStatModel(
-      stat: stat,
-      countCrayon1: crayon1,
-      countCrayon2: crayon2,
-      countCrayon3: crayon3,
+          return (statCrayon3, countCrayon3);
+        },
+      ),
     );
-  }
-}
 
-final totalStatStateProvider = StateNotifierProvider.autoDispose.family<
-    TotalStatStateNotifier, TotalStatModel, BoardType>(
-  (ref, boardType) => TotalStatStateNotifier.initial(boardType),
+    return TotalStatModel(
+      stat: statCrayon1 + statCrayon2 + statCrayon3,
+      countCrayon1: countCrayon1,
+      countCrayon2: countCrayon2,
+      countCrayon3: countCrayon3,
+    );
+  },
 );

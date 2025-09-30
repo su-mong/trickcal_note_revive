@@ -2,135 +2,160 @@ part of '../character_constants.dart';
 
 /// 활발
 abstract class BriskCharacterConstants {
+  /// ID : 1000번부터 시작
+  static const int _baseId = 1000;
+  
   static const CharacterModel vela = CharacterModel(
+    id: _baseId + 0,
     name: '벨라',
-    engName: 'vela',
+    engName: 'Vela',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel epica = CharacterModel(
+    id: _baseId + 1,
     name: '에피카',
-    engName: 'epica',
+    engName: 'Epica',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel ui = CharacterModel(
+    id: _baseId + 2,
     name: '우이',
-    engName: 'ui',
+    engName: 'Ui',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel rude = CharacterModel(
+    id: _baseId + 3,
     name: '루드',
-    engName: 'rude',
+    engName: 'Rude',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel selline = CharacterModel(
+    id: _baseId + 4,
     name: '셀리네',
-    engName: 'selline',
+    engName: 'Selline',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel tig = CharacterModel(
+    id: _baseId + 5,
     name: '티그',
-    engName: 'tig',
+    engName: 'Tig',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel rufo = CharacterModel(
+    id: _baseId + 6,
     name: '루포',
-    engName: 'rufo',
+    engName: 'Rufo',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel arco = CharacterModel(
+    id: _baseId + 7,
     name: '아르코',
-    engName: 'arco',
+    engName: 'Arco',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel momo = CharacterModel(
+    id: _baseId + 8,
     name: '모모',
-    engName: 'momo',
+    engName: 'Momo',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel butter = CharacterModel(
+    id: _baseId + 9,
     name: '버터',
-    engName: 'butter',
+    engName: 'Butter',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel speakiMaid = CharacterModel(
+    id: _baseId + 10,
     name: '스피키(메이드)',
-    engName: 'speakiMaid',
+    engName: 'SpeakiMaid',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel canna = CharacterModel(
+    id: _baseId + 11,
     name: '칸나',
-    engName: 'canna',
+    engName: 'Canna',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel suro = CharacterModel(
+    id: _baseId + 12,
     name: '슈로',
-    engName: 'suro',
+    engName: 'Suro',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel makasha = CharacterModel(
+    id: _baseId + 13,
     name: '마카샤',
-    engName: 'makasha',
+    engName: 'Makasha',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel shoupan = CharacterModel(
+    id: _baseId + 14,
     name: '슈팡',
-    engName: 'shoupan',
+    engName: 'Shoupan',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel beni = CharacterModel(
+    id: _baseId + 15,
     name: '베니',
-    engName: 'beni',
+    engName: 'Beni',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel marie = CharacterModel(
+    id: _baseId + 16,
     name: '마리',
-    engName: 'marie',
+    engName: 'Marie',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel jubee = CharacterModel(
+    id: _baseId + 17,
     name: '쥬비',
-    engName: 'jubee',
+    engName: 'Jubee',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel bana = CharacterModel(
+    id: _baseId + 18,
     name: '바나',
-    engName: 'bana',
+    engName: 'Bana',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel mynx = CharacterModel(
+    id: _baseId + 19,
     name: '밍스',
-    engName: 'mynx',
+    engName: 'Mynx',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel taida = CharacterModel(
+    id: _baseId + 20,
     name: '타이다',
-    engName: 'taida',
+    engName: 'Taida',
     type: CharacterType.brisk,
   );
 
   static const CharacterModel carren = CharacterModel(
+    id: _baseId + 21,
     name: '카렌',
-    engName: 'carren',
+    engName: 'Carren',
     type: CharacterType.brisk,
   );
 }

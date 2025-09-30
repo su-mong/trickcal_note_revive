@@ -14,24 +14,24 @@ class BoardTypeCurrentCountState {
   });
 }
 
-final boardTypeCurrentCountStateProvider = Provider.family<BoardTypeCurrentCountState, (int, BoardType)>(
-  (ref, arguments) {
+final board1stTypeCurrentCountStateProvider = Provider.family<BoardTypeCurrentCountState, BoardType>(
+  (ref, boardType) {
     final (int currentCount, int totalCount) = ref.watch(
       board1stDataStateProvider.select(
         (data) {
           int currentCount = 0;
           int totalCount = 0;
-          for(var characterList in data[arguments.$2]!.values) {
+          for(var characterList in data[boardType]!.values) {
             totalCount += characterList.length;
             for(var characterStateModel in characterList) {
-              if(characterStateModel.state == BoardState.check) {
+              if(characterStateModel.state == BoardState.active) {
                 currentCount++;
               }
             }
           }
 
           return (currentCount, totalCount);
-        }
+        },
       ),
     );
 
@@ -40,4 +40,60 @@ final boardTypeCurrentCountStateProvider = Provider.family<BoardTypeCurrentCount
       totalCount: totalCount,
     );
   }
+);
+
+final board2ndTypeCurrentCountStateProvider = Provider.family<BoardTypeCurrentCountState, BoardType>(
+  (ref, boardType) {
+    final (int currentCount, int totalCount) = ref.watch(
+      board2ndDataStateProvider.select(
+        (data) {
+          int currentCount = 0;
+          int totalCount = 0;
+          for(var characterList in data[boardType]!.values) {
+            totalCount += characterList.length;
+            for(var characterStateModel in characterList) {
+              if(characterStateModel.state == BoardState.active) {
+                currentCount++;
+              }
+            }
+          }
+
+          return (currentCount, totalCount);
+        },
+      ),
+    );
+
+    return BoardTypeCurrentCountState(
+      currentCount: currentCount,
+      totalCount: totalCount,
+    );
+  },
+);
+
+final board3rdTypeCurrentCountStateProvider = Provider.family<BoardTypeCurrentCountState, BoardType>(
+  (ref, boardType) {
+    final (int currentCount, int totalCount) = ref.watch(
+      board3rdDataStateProvider.select(
+        (data) {
+          int currentCount = 0;
+          int totalCount = 0;
+          for(var characterList in data[boardType]!.values) {
+            totalCount += characterList.length;
+            for(var characterStateModel in characterList) {
+              if(characterStateModel.state == BoardState.active) {
+                currentCount++;
+              }
+            }
+          }
+
+          return (currentCount, totalCount);
+        },
+      ),
+    );
+
+    return BoardTypeCurrentCountState(
+      currentCount: currentCount,
+      totalCount: totalCount,
+    );
+  },
 );

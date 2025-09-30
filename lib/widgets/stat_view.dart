@@ -14,7 +14,7 @@ class StatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
-      constraints: BoxConstraints(maxWidth: 420),
+      constraints: BoxConstraints(maxWidth: 500),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: _color),
@@ -24,11 +24,11 @@ class StatView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _StatViewRowWidget(BoardType.attack, null),
-          _StatViewRowWidget(BoardType.physicalDefense, BoardType.magicalDefense),
-          _StatViewRowWidget(BoardType.fatalBlow, BoardType.fatalDamage),
-          _StatViewRowWidget(BoardType.fatalBlowDefense, BoardType.fatalDamageDefense),
-          _StatViewRowWidget(BoardType.hp, null, isEnd: true),
+          _StatViewRowWidget(BoardType.hp, BoardType.attack),
+          _StatViewRowWidget(BoardType.attack, BoardType.fatalBlow),
+          _StatViewRowWidget(BoardType.fatalDamage, BoardType.fatalBlowDefense),
+          _StatViewRowWidget(BoardType.fatalDamageDefense, BoardType.physicalDefense),
+          _StatViewRowWidget(BoardType.magicalDefense, null, isEnd: true),
         ],
       ),
     );
@@ -39,20 +39,28 @@ class _StatViewRowWidget extends ConsumerWidget {
   final BoardType firstType;
   final BoardType? secondType;
   final bool isEnd;
-  const _StatViewRowWidget(this.firstType, this.secondType, {this.isEnd = false});
+  const _StatViewRowWidget(
+    this.firstType,
+    this.secondType, {
+    this.isEnd = false,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstTypeState = ref.watch(totalStatStateProvider(firstType));
 
-    if(firstType == BoardType.attack) {
+    if(secondType == BoardType.attack) {
+      final secondTypeState = ref.watch(totalStatStateProvider(secondType!));
+
       return Row(
         spacing: 16,
         children: [
           Expanded(
             child: _StatViewItemWidget(
-              title: '물리 공격력',
-              typeName: BoardType.attack.name,
+              title: (firstType == BoardType.attack) ? '마법 공격력' : firstType.title,
+              typeName: (firstType == BoardType.attack)
+                  ? 'icon_magicalAttack'
+                  : 'icon_${firstType.name}',
               stat: '${firstTypeState.stat}%',
               crayonCount1: firstTypeState.countCrayon1,
               crayonCount2: firstTypeState.countCrayon2,
@@ -61,12 +69,12 @@ class _StatViewRowWidget extends ConsumerWidget {
           ),
           Expanded(
             child: _StatViewItemWidget(
-              title: '마법 공격력',
-              typeName: BoardType.attack.name,
-              stat: '${firstTypeState.stat}%',
-              crayonCount1: firstTypeState.countCrayon1,
-              crayonCount2: firstTypeState.countCrayon2,
-              crayonCount3: firstTypeState.countCrayon3,
+              title: '물리 공격력',
+              typeName: 'icon_physicalAttack',
+              stat: '${secondTypeState.stat}%',
+              crayonCount1: secondTypeState.countCrayon1,
+              crayonCount2: secondTypeState.countCrayon2,
+              crayonCount3: secondTypeState.countCrayon3,
             ),
           ),
         ],
@@ -81,8 +89,10 @@ class _StatViewRowWidget extends ConsumerWidget {
         children: [
           Expanded(
             child: _StatViewItemWidget(
-              title: 'HP',
-              typeName: BoardType.hp.name,
+              title: (firstType == BoardType.attack) ? '마법 공격력' : firstType.title,
+              typeName: (firstType == BoardType.attack)
+                  ? 'icon_magicalAttack'
+                  : 'icon_${firstType.name}',
               stat: '${firstTypeState.stat}%',
               crayonCount1: firstTypeState.countCrayon1,
               crayonCount2: firstTypeState.countCrayon2,
@@ -109,8 +119,10 @@ class _StatViewRowWidget extends ConsumerWidget {
       children: [
         Expanded(
           child: _StatViewItemWidget(
-            title: firstType.title,
-            typeName: firstType.name,
+            title: (firstType == BoardType.attack) ? '마법 공격력' : firstType.title,
+            typeName: (firstType == BoardType.attack)
+                ? 'icon_magicalAttack'
+                : 'icon_${firstType.name}',
             stat: '${firstTypeState.stat}%',
             crayonCount1: firstTypeState.countCrayon1,
             crayonCount2: firstTypeState.countCrayon2,
@@ -120,7 +132,7 @@ class _StatViewRowWidget extends ConsumerWidget {
         Expanded(
           child: _StatViewItemWidget(
             title: secondType!.title,
-            typeName: secondType!.name,
+            typeName: 'icon_${secondType!.name}',
             stat: '${secondTypeState.stat}%',
             crayonCount1: secondTypeState.countCrayon1,
             crayonCount2: secondTypeState.countCrayon2,
@@ -134,6 +146,8 @@ class _StatViewRowWidget extends ConsumerWidget {
 
 class _StatViewItemWidget extends StatelessWidget {
   static const Color _color = Color(0xFFC0DC7F);
+  static const Color _subColor = Color(0xFFF6FDE7);
+  static const Color _textColor = Color(0xFF315A19);
 
   final String title;
   final String typeName;
@@ -158,33 +172,53 @@ class _StatViewItemWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.all(4),
+          height: 40,
           decoration: BoxDecoration(
             color: _color,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [
+              const SizedBox(width: 4),
               Image.asset(
                 'assets/images/$typeName.png',
                 height: 28,
               ),
               const SizedBox(width: 4),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+              Expanded(
+                child: Container(
+                  height: 36,
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  decoration: BoxDecoration(
+                    color: _subColor,
+                    borderRadius: BorderRadius.horizontal(
+                      right: Radius.circular(8),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: _textColor,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        stat,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: _textColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-              const Spacer(),
-              Text(
-                stat,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              const SizedBox(width: 2),
             ],
           ),
         ),

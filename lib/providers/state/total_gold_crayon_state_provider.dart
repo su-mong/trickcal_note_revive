@@ -1,5 +1,9 @@
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trickcal_note_revive/models/board_constants.dart';
+import 'package:trickcal_note_revive/models/board_type.dart';
+
+import '../../models/board_state.dart';
+import '../data/board_data_provider.dart';
 
 class TotalGoldCrayonModel {
   final int totalCount;
@@ -15,77 +19,70 @@ class TotalGoldCrayonModel {
   });
 }
 
-class TotalGoldCrayonStateNotifier extends StateNotifier<TotalGoldCrayonModel> {
-  TotalGoldCrayonStateNotifier._(super.state);
+final totalGoldCrayonStateProvider = Provider<TotalGoldCrayonModel>(
+  (ref) {
+    final countBoardNum1 = ref.watch(
+      board1stDataStateProvider.select(
+        (data) {
+          int result = 0;
+          for(var boardType in BoardType.values) {
+            for(var characterList in data[boardType]!.values) {
+              for(var characterStateModel in characterList) {
+                if(characterStateModel.state == BoardState.active) {
+                  result += BoardConstants.goldCrayon1stBoard;
+                }
+              }
+            }
+          }
 
-  factory TotalGoldCrayonStateNotifier.initial() => TotalGoldCrayonStateNotifier._(
-    TotalGoldCrayonModel(
-      totalCount: 0,
-      countBoardNum1: 0,
-      countBoardNum2: 0,
-      countBoardNum3: 0,
-    ),
-  );
-
-  void add(int boardNumber) {
-    int totalCount = state.totalCount;
-    int crayon1 = state.countBoardNum1;
-    int crayon2 = state.countBoardNum2;
-    int crayon3 = state.countBoardNum3;
-
-    switch(boardNumber) {
-      case 1:
-        totalCount += BoardConstants.goldCrayon1stBoard;
-        crayon1++;
-        break;
-      case 2:
-        totalCount += BoardConstants.goldCrayon2ndBoard;
-        crayon2++;
-        break;
-      case 3:
-        totalCount += BoardConstants.goldCrayon3rdBoard;
-        crayon3++;
-        break;
-    }
-
-    state = TotalGoldCrayonModel(
-      totalCount: totalCount,
-      countBoardNum1: crayon1,
-      countBoardNum2: crayon2,
-      countBoardNum3: crayon3,
+          return result;
+        },
+      ),
     );
-  }
 
-  void subtract(int boardNumber) {
-    int totalCount = state.totalCount;
-    int crayon1 = state.countBoardNum1;
-    int crayon2 = state.countBoardNum2;
-    int crayon3 = state.countBoardNum3;
+    final countBoardNum2 = ref.watch(
+      board2ndDataStateProvider.select(
+        (data) {
+          int result = 0;
+          for(var boardType in BoardType.values) {
+            for(var characterList in data[boardType]!.values) {
+              for(var characterStateModel in characterList) {
+                if(characterStateModel.state == BoardState.active) {
+                  result += BoardConstants.goldCrayon2ndBoard;
+                }
+              }
+            }
+          }
 
-    switch(boardNumber) {
-      case 1:
-        totalCount -= BoardConstants.goldCrayon1stBoard;
-        crayon1--;
-        break;
-      case 2:
-        totalCount -= BoardConstants.goldCrayon2ndBoard;
-        crayon2--;
-        break;
-      case 3:
-        totalCount -= BoardConstants.goldCrayon3rdBoard;
-        crayon3--;
-        break;
-    }
-
-    state = TotalGoldCrayonModel(
-      totalCount: totalCount,
-      countBoardNum1: crayon1,
-      countBoardNum2: crayon2,
-      countBoardNum3: crayon3,
+          return result;
+        },
+      ),
     );
-  }
-}
 
-final totalGoldCrayonStateProvider = StateNotifierProvider<TotalGoldCrayonStateNotifier, TotalGoldCrayonModel>(
-  (ref) => TotalGoldCrayonStateNotifier.initial(),
+    final countBoardNum3 = ref.watch(
+      board3rdDataStateProvider.select(
+            (data) {
+          int result = 0;
+          for(var boardType in BoardType.values) {
+            for(var characterList in data[boardType]!.values) {
+              for(var characterStateModel in characterList) {
+                if(characterStateModel.state == BoardState.active) {
+                  result += BoardConstants.goldCrayon3rdBoard;
+                }
+              }
+            }
+          }
+
+          return result;
+        },
+      ),
+    );
+
+    return TotalGoldCrayonModel(
+      totalCount: countBoardNum1 + countBoardNum2 + countBoardNum3,
+      countBoardNum1: countBoardNum1,
+      countBoardNum2: countBoardNum2,
+      countBoardNum3: countBoardNum3,
+    );
+  },
 );

@@ -4,9 +4,13 @@ import '../models/board_type.dart';
 import 'board_view.dart';
 
 class BoardRow extends StatelessWidget {
+  final int boardNum;
+  final bool isShowName;
   final List<BoardType?> boardTypeList;
 
   const BoardRow({
+    required this.boardNum,
+    required this.isShowName,
     required this.boardTypeList,
     super.key,
   });
@@ -28,6 +32,8 @@ class BoardRow extends StatelessWidget {
 
             return Expanded(
               child: BoardView(
+                isShowName: isShowName,
+                boardNum: boardNum,
                 boardType: boardType,
               ),
             );

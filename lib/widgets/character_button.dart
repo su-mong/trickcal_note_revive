@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trickcal_note_revive/providers/state/view_settings_state_provider.dart';
 
 import '../mixins/event_mixin.dart';
 import '../models/board_state.dart';
@@ -19,39 +20,87 @@ class CharacterButton extends ConsumerWidget with EventMixin {
     final currentState = ref.watch(
       boardViewItemStateProvider(arguments),
     );
+    final isShowName = ref.watch(isShowNameProvider);
 
     return BaseButton(
-      onTap: () => clickCharacter(
-        ref,
-        arguments,
-        currentState,
-      ),
+      onTap: () => clickCharacter(ref, arguments),
       child: Stack(
         children: [
-          Container(
-            padding: const EdgeInsets.all(4),
-            color: switch(currentState) {
-              BoardState.inactive => Colors.black38,
-              BoardState.active => arguments.character.type.color,
-              BoardState.check => arguments.character.type.color,
-            },
-            alignment: Alignment.center,
-            child: Image.asset(
-              'assets/images/${arguments.character.engName}.webp',
-              color: currentState == BoardState.inactive
-                  ? Colors.grey
-                  : null,
-              colorBlendMode: currentState == BoardState.inactive
-                  ? BlendMode.saturation
-                  : null,
+          AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                color: currentState == BoardState.notHave
+                    ? Colors.grey
+                    : arguments.character.type.secondaryColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              alignment: Alignment.center,
+              child: Container(
+                margin: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  color: currentState == BoardState.notHave
+                      ? Colors.grey
+                      : arguments.character.type.color,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: currentState == BoardState.notHave
+                          ? const Color(0xFF757575)
+                          : const Color(0xFFBBBBBB),
+                      offset: const Offset(1, 3),
+                      blurRadius: 0,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: Image.asset(
+                  'assets/sados/${arguments.character.engName}.png',
+                  color: currentState == BoardState.notHave
+                      ? Colors.grey
+                      : null,
+                  colorBlendMode: currentState == BoardState.notHave
+                      ? BlendMode.saturation
+                      : null,
+                ),
+              ),
             ),
           ),
 
-          if(currentState == BoardState.check)
+          if(isShowName)
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  arguments.character.name,
+                  style: TextStyle(
+                    color: currentState == BoardState.notHave
+                        ? Colors.grey
+                        : Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+
+          if(currentState == BoardState.active)
             AspectRatio(
               aspectRatio: 1,
               child: Container(
-                color: Color(0x52000000),
+                decoration: BoxDecoration(
+                  color: Color(0x52000000),
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 alignment: Alignment.center,
                 child: Image.asset(
                   'assets/images/check.png',

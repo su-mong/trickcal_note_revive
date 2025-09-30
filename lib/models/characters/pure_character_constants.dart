@@ -2,129 +2,153 @@ part of '../character_constants.dart';
 
 /// 순수
 abstract class PureCharacterConstants {
+  /// ID : 5000번부터 시작
+  static const int _baseId = 5000;
+
   static const CharacterModel vivi = CharacterModel(
+    id: _baseId + 0,
     name: '비비',
-    engName: 'vivi',
+    engName: 'Vivi',
     type: CharacterType.pure,
   );
 
   static const CharacterModel ran = CharacterModel(
+    id: _baseId + 1,
     name: '란',
-    engName: 'ran',
+    engName: 'Ran',
     type: CharacterType.pure,
   );
 
   static const CharacterModel sherum = CharacterModel(
+    id: _baseId + 2,
     name: '셰럼',
-    engName: 'sherum',
+    engName: 'Sherum',
     type: CharacterType.pure,
   );
 
   static const CharacterModel laika = CharacterModel(
+    id: _baseId + 3,
     name: '라이카',
-    engName: 'laika',
+    engName: 'Laika',
     type: CharacterType.pure,
   );
 
   static const CharacterModel mayoCool = CharacterModel(
+    id: _baseId + 4,
     name: '마요(멋짐)',
-    engName: 'mayoCool',
+    engName: 'MayoCool',
     type: CharacterType.pure,
   );
 
   static const CharacterModel haley = CharacterModel(
+    id: _baseId + 5,
     name: '헤일리',
-    engName: 'haley',
+    engName: 'Haley',
     type: CharacterType.pure,
   );
 
   static const CharacterModel daya = CharacterModel(
+    id: _baseId + 6,
     name: '다야',
-    engName: 'daya',
+    engName: 'Daya',
     type: CharacterType.pure,
   );
 
   static const CharacterModel erpin = CharacterModel(
+    id: _baseId + 7,
     name: '에르핀',
-    engName: 'erpin',
+    engName: 'Erpin',
     type: CharacterType.pure,
   );
 
   static const CharacterModel kathy = CharacterModel(
+    id: _baseId + 8,
     name: '캐시',
-    engName: 'kathy',
+    engName: 'Kathy',
     type: CharacterType.pure,
   );
 
   static const CharacterModel naia = CharacterModel(
+    id: _baseId + 9,
     name: '나이아',
-    engName: 'naia',
+    engName: 'Naia',
     type: CharacterType.pure,
   );
 
   static const CharacterModel opal = CharacterModel(
+    id: _baseId + 10,
     name: '오팔',
-    engName: 'opal',
+    engName: 'Opal',
     type: CharacterType.pure,
   );
 
   static const CharacterModel mute = CharacterModel(
+    id: _baseId + 11,
     name: '뮤트',
-    engName: 'mute',
+    engName: 'Mute',
     type: CharacterType.pure,
   );
 
   static const CharacterModel kyarot = CharacterModel(
+    id: _baseId + 12,
     name: '캬롯',
-    engName: 'kyarot',
+    engName: 'Kyarot',
     type: CharacterType.pure,
   );
 
   static const CharacterModel rohne = CharacterModel(
+    id: _baseId + 13,
     name: '로네',
-    engName: 'rohne',
+    engName: 'Rohne',
     type: CharacterType.pure,
   );
 
   static const CharacterModel bigWood = CharacterModel(
+    id: _baseId + 14,
     name: '빅우드',
-    engName: 'bigWood',
+    engName: 'BigWood',
     type: CharacterType.pure,
   );
 
   static const CharacterModel gabia = CharacterModel(
+    id: _baseId + 15,
     name: '가비아',
-    engName: 'gabia',
+    engName: 'Gabia',
     type: CharacterType.pure,
   );
 
   static const CharacterModel mago = CharacterModel(
+    id: _baseId + 16,
     name: '마고',
-    engName: 'mago',
+    engName: 'Mago',
     type: CharacterType.pure,
   );
 
   static const CharacterModel speaki = CharacterModel(
+    id: _baseId + 17,
     name: '스피키',
-    engName: 'speaki',
+    engName: 'Speaki',
     type: CharacterType.pure,
   );
 
   static const CharacterModel allet = CharacterModel(
+    id: _baseId + 18,
     name: '알레트',
-    engName: 'allet',
+    engName: 'Allet',
     type: CharacterType.pure,
   );
 
   static const CharacterModel sari = CharacterModel(
+    id: _baseId + 19,
     name: '사리',
-    engName: 'sari',
+    engName: 'Sari',
     type: CharacterType.pure,
   );
 
   static const CharacterModel cuee = CharacterModel(
+    id: _baseId + 20,
     name: '큐이',
-    engName: 'cuee',
+    engName: 'Cuee',
     type: CharacterType.pure,
   );
 }

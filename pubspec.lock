@@ -122,7 +122,7 @@ packages:
     source: hosted
     version: "3.0.3"
   build_runner:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: build_runner
       sha256: b24597fceb695969d47025c958f3837f9f0122e237c6a22cb082a5ac66c3ca30
@@ -210,7 +210,7 @@ packages:
     source: hosted
     version: "4.11.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: "2f5709ae4d3d59dd8f7cd309b4e023046b57d8a6c82130785d2b0e5868084e76"
@@ -234,7 +234,7 @@ packages:
     source: hosted
     version: "1.15.0"
   crypto:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: crypto
       sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
@@ -352,8 +352,24 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      sha256: "144ddd74d49c865eba47abe31cbc746c7b311c82d6c32e571fd73c4264b740e2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.0"
+  freezed:
+    dependency: "direct dev"
+    description:
+      name: freezed
+      sha256: "13065f10e135263a4f5a4391b79a8efc5fb8106f8dd555a9e49b750b45393d77"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.3"
   freezed_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: freezed_annotation
       sha256: "7294967ff0a6d98638e7acb774aac3af2550777accd8149c90af5b014e6d44d8"
@@ -457,13 +473,21 @@ packages:
     source: hosted
     version: "0.7.2"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
       url: "https://pub.dev"
     source: hosted
     version: "4.9.0"
+  json_serializable:
+    dependency: "direct dev"
+    description:
+      name: json_serializable
+      sha256: "33a040668b31b320aafa4822b7b1e177e163fc3c1e835c6750319d4ab23aa6fe"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.11.1"
   jwt_decode:
     dependency: transitive
     description:
@@ -713,7 +737,7 @@ packages:
     source: hosted
     version: "0.28.0"
   shared_preferences:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences
       sha256: "6e8bf70b7fef813df4e9a36f658ac46d107db4b4cfe1048b477d4e453a8159f5"
@@ -813,6 +837,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  source_helper:
+    dependency: transitive
+    description:
+      name: source_helper
+      sha256: "6a3c6cc82073a8797f8c4dc4572146114a39652851c157db37e964d9c7038723"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.8"
   source_map_stack_trace:
     dependency: transitive
     description:
