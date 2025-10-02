@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trickcal_note_revive/widgets/settings/active_board_type_view.dart';
+import 'package:trickcal_note_revive/widgets/settings/all_check_button.dart';
 import 'package:trickcal_note_revive/widgets/settings/changing_is_show_name_button.dart';
 
 class SettingsView extends StatefulWidget {
@@ -105,6 +106,9 @@ class _SettingsViewState extends State<SettingsView> with SingleTickerProviderSt
                   const SizedBox(height: 8),
                   Divider(color: _color),
                   const ChangingIsShowNameButton(),
+                  Divider(color: _color),
+                  const SizedBox(height: 8),
+                  AllCheckButton(),
                 ],
               ),
             ),

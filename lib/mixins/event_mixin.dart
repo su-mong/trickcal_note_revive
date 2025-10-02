@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:trickcal_note_revive/providers/state/profile_character_state_provider.dart';
 
+import '../models/board_state.dart';
 import '../providers/data/board_data_provider.dart';
 import '../providers/state/board_view_item_state_provider.dart';
 import '../providers/state/current_board_view_provider.dart';
@@ -27,6 +28,25 @@ mixin EventMixin {
       boardType: arguments.boardType,
       characterBoard: arguments.characterBoard,
     );
+  }
+
+  void changeAllCurrentBoard(WidgetRef ref, int boardNumber, {bool changeToActive = true}) {
+    late final BoardDataStateNotifier boardViewItemStateNotifier;
+    switch(boardNumber) {
+      case 1:
+        boardViewItemStateNotifier = ref.read(board1stDataStateProvider.notifier);
+        break;
+      case 2:
+        boardViewItemStateNotifier = ref.read(board2ndDataStateProvider.notifier);
+        break;
+      default:
+        boardViewItemStateNotifier = ref.read(board3rdDataStateProvider.notifier);
+        break;
+    }
+
+    boardViewItemStateNotifier.changeAll(changeToActive
+        ? BoardState.active
+        : BoardState.inactive);
   }
 
   Future<String> saveAll(WidgetRef ref) async {

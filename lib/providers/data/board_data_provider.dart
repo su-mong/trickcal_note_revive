@@ -125,6 +125,37 @@ class BoardDataStateNotifier extends StateNotifier<Map<BoardType, Map<CharacterT
     state = Map.from(state);
     return newState;
   }
+
+  void changeAll(BoardState boardState) {
+    // Create a deep copy of the state to avoid mutating the original
+    final newData = Map<BoardType, Map<CharacterType, List<CharacterStateModel>>>.from(state);
+
+    newData.forEach((boardType, charMap) {
+      final newCharMap = Map<CharacterType, List<CharacterStateModel>>.from(charMap);
+
+      newCharMap.forEach((charType, modelList) {
+        // Create a new list and update each model's state
+        // Assuming CharacterStateModel has a copyWith method for immutability.
+        // If not, implement one or replace with a new instance if the model is simple.
+        final newModelList = modelList.map((model) {
+          // If copyWith exists:
+          return model.copyWith(state: boardState);
+
+          // If no copyWith, and model is mutable, you can do:
+          // model.state = true;
+          // return model;
+          // But for immutability, prefer creating new instances.
+        }).toList();
+
+        newCharMap[charType] = newModelList;
+      });
+
+      newData[boardType] = newCharMap;
+    });
+
+    // Update the state with the new data
+    state = newData;
+  }
 }
 
 /// 아래 provider는 notifier만 사용한다.
