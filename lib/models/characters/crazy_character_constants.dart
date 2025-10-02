@@ -144,4 +144,11 @@ abstract class CrazyCharacterConstants {
     engName: 'Yumimi',
     type: CharacterType.crazy,
   );
+
+  static const CharacterModel tigHero = CharacterModel(
+    id: _baseId + 20,
+    name: '티그(영웅)',
+    engName: 'TigHero',
+    type: CharacterType.crazy,
+  );
 }

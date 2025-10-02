@@ -5,32 +5,109 @@ import 'package:trickcal_note_revive/providers/state/total_stat_state_provider.d
 
 import '../models/board_type.dart';
 
-class StatView extends StatelessWidget {
-  static const Color _color = Color(0xFFC0DC7F);
-
+class StatView extends StatefulWidget {
   const StatView({super.key});
 
   @override
+  State<StatView> createState() => _StatViewState();
+}
+
+class _StatViewState extends State<StatView> with SingleTickerProviderStateMixin {
+  static const Color _color = Color(0xFFC0DC7F);
+
+  bool _isExpanded = false;
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      constraints: BoxConstraints(maxWidth: 500),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _color),
-      ),
-      child: Column(
-        spacing: 8,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _StatViewRowWidget(BoardType.hp, BoardType.attack),
-          _StatViewRowWidget(BoardType.attack, BoardType.fatalBlow),
-          _StatViewRowWidget(BoardType.fatalDamage, BoardType.fatalBlowDefense),
-          _StatViewRowWidget(BoardType.fatalDamageDefense, BoardType.physicalDefense),
-          _StatViewRowWidget(BoardType.magicalDefense, null, isEnd: true),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GestureDetector(
+          onTap: () {
+            if(_isExpanded) {
+              _controller.reverse().then((_) {
+                setState(() {
+                  _isExpanded = false;
+                });
+              });
+            } else {
+              setState(() {
+                _isExpanded = true;
+                _controller.forward();
+              });
+            }
+          },
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 500),
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            decoration: BoxDecoration(
+              color: _color,
+              borderRadius: _isExpanded
+                  ? BorderRadius.vertical(top: Radius.circular(8))
+                  : BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '전체 스탯 & 황크 갯수',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Icon(
+                  _isExpanded ? Icons.expand_less : Icons.expand_more,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+          ),
+        ),
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 500),
+          child: SizeTransition(
+            sizeFactor: _animation,
+            axisAlignment: -1,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: _color),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(8),
+                ),
+              ),
+              child: Column(
+                spacing: 8,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _StatViewRowWidget(BoardType.hp, BoardType.attack),
+                  _StatViewRowWidget(BoardType.attack, BoardType.fatalBlow),
+                  _StatViewRowWidget(BoardType.fatalDamage, BoardType.fatalBlowDefense),
+                  _StatViewRowWidget(BoardType.fatalDamageDefense, BoardType.physicalDefense),
+                  _StatViewRowWidget(BoardType.magicalDefense, null, isEnd: true),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

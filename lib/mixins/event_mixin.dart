@@ -25,7 +25,7 @@ mixin EventMixin {
 
     boardViewItemStateNotifier.changeState(
       boardType: arguments.boardType,
-      character: arguments.character,
+      characterBoard: arguments.characterBoard,
     );
   }
 

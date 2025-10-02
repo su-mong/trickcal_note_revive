@@ -6,6 +6,7 @@ part 'characters/cool_character_constants.dart';
 part 'characters/crazy_character_constants.dart';
 part 'characters/brisk_character_constants.dart';
 part 'characters/gloomy_character_constants.dart';
+part 'characters/resonance_character_constants.dart';
 
 abstract class CharacterConstants {
   static const List<CharacterModel> characters = [

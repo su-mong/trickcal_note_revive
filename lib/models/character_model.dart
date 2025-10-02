@@ -18,11 +18,4 @@ abstract class CharacterModel with _$CharacterModel {
     final int id = (json['id'] as num).toInt();
     return CharacterConstants.findCharacter(id);
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-    };
-  }
 }

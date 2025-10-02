@@ -23,6 +23,7 @@ Map<String, dynamic> _$CharacterModelToJson(_CharacterModel instance) =>
     };
 
 const _$CharacterTypeEnumMap = {
+  CharacterType.resonance: 'resonance',
   CharacterType.cool: 'cool',
   CharacterType.gloomy: 'gloomy',
   CharacterType.brisk: 'brisk',

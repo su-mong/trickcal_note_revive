@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../models/board_constants.dart';
 import '../models/board_type.dart';
+import '../models/character_board_model.dart';
 import '../models/character_type.dart';
 import '../providers/state/board_view_item_state_provider.dart';
 import 'board_title_view.dart';
-import 'character_button.dart';
+import 'character_button/character_button.dart';
 
 class BoardView extends StatelessWidget {
   final int boardNum;
@@ -38,53 +39,65 @@ class BoardView extends StatelessWidget {
           const SizedBox(height: 20),
 
           ...CharacterType.values.map(
-            (characterType) => Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      'assets/images/${characterType.name}.png',
-                      height: 20,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      characterType.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+            (characterType) {
+              final characterModels = (
+                  boardNum == 1
+                      ? BoardConstants.board1st
+                      : boardNum == 2
+                      ? BoardConstants.board2nd
+                      : BoardConstants.board3rd
+              )[boardType]![characterType]!;
+
+              if(characterModels.isEmpty) {
+                return const SizedBox.shrink();
+              }
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/${characterType.name}.png',
+                        height: 20,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                ..._gridView(characterType, isShowName),
-                const SizedBox(height: 16),
-              ],
-            ),
+                      const SizedBox(width: 4),
+                      Text(
+                        characterType.title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  ..._gridView(
+                    characterModels,
+                    characterType,
+                    isShowName,
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  List<Widget> _gridView(CharacterType characterType, bool isShowName) {
+  List<Widget> _gridView(List<CharacterBoardModel> characterModels, CharacterType characterType, bool isShowName) {
     final rowItemCount = isShowName ? 4 : 5;
 
-    final List<BoardViewItemStateArguments> items = (
-        boardNum == 1
-            ? BoardConstants.board1st
-            : boardNum == 2
-            ? BoardConstants.board2nd
-            : BoardConstants.board3rd
-    )[boardType]![characterType]!.map(
+    final List<BoardViewItemStateArguments> items = characterModels.map(
       (character) => BoardViewItemStateArguments(
         boardNumber: boardNum,
         boardType: boardType,
         characterType: characterType,
-        character: character
+        characterBoard: character,
       ),
     ).toList();
 

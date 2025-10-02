@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trickcal_note_revive/providers/state/view_settings_state_provider.dart';
 
-import '../mixins/event_mixin.dart';
-import '../models/board_state.dart';
-import '../providers/state/board_view_item_state_provider.dart';
-import 'base_button.dart';
+import '../../mixins/event_mixin.dart';
+import '../../models/board_state.dart';
+import '../../providers/state/board_view_item_state_provider.dart';
+import '../../providers/state/view_settings_state_provider.dart';
+import '../base_button.dart';
+import 'crayon_row.dart';
 
 class CharacterButton extends ConsumerWidget with EventMixin {
   final BoardViewItemStateArguments arguments;
@@ -32,7 +33,7 @@ class CharacterButton extends ConsumerWidget with EventMixin {
               decoration: BoxDecoration(
                 color: currentState == BoardState.notHave
                     ? Colors.grey
-                    : arguments.character.type.secondaryColor,
+                    : arguments.characterBoard.character.type.secondaryColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               alignment: Alignment.center,
@@ -41,7 +42,7 @@ class CharacterButton extends ConsumerWidget with EventMixin {
                 decoration: BoxDecoration(
                   color: currentState == BoardState.notHave
                       ? Colors.grey
-                      : arguments.character.type.color,
+                      : arguments.characterBoard.character.type.color,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
@@ -55,7 +56,7 @@ class CharacterButton extends ConsumerWidget with EventMixin {
                   ],
                 ),
                 child: Image.asset(
-                  'assets/sados/${arguments.character.engName}.png',
+                  'assets/sados/${arguments.characterBoard.character.engName}.png',
                   color: currentState == BoardState.notHave
                       ? Colors.grey
                       : null,
@@ -64,6 +65,16 @@ class CharacterButton extends ConsumerWidget with EventMixin {
                       : null,
                 ),
               ),
+            ),
+          ),
+
+          Positioned(
+            top: 2,
+            left: 2,
+            right: 0,
+            child: CrayonRow(
+              gold: arguments.characterBoard.goldCrayon,
+              purple: arguments.characterBoard.purpleCrayon,
             ),
           ),
 
@@ -80,7 +91,7 @@ class CharacterButton extends ConsumerWidget with EventMixin {
                   ),
                 ),
                 child: Text(
-                  arguments.character.name,
+                  arguments.characterBoard.character.name,
                   style: TextStyle(
                     color: currentState == BoardState.notHave
                         ? Colors.grey

@@ -19,6 +19,7 @@ dependencies:
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
   collection: ^1.19.1
+  flutter_dotenv: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +39,7 @@ flutter:
     - assets/images/
     - assets/sados/
     - assets/icons/
+    - .env
 
   fonts:
     - family: OneMobilePop

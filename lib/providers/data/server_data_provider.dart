@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:trickcal_note_revive/models/board_type.dart';
+import 'package:trickcal_note_revive/providers/state/current_board_type_state_provider.dart';
 import 'package:trickcal_note_revive/providers/state/profile_character_state_provider.dart';
 
 import '../state/current_board_view_provider.dart';
@@ -38,6 +40,9 @@ final serverDataProvider = FutureProvider<void>((ref) async {
       // ref.read(board2ndDataStateProvider.notifier).loadFromJson(jsonDecode(data[0]['data'][1]) as Map<String, dynamic>);
       // ref.read(board3rdDataStateProvider.notifier).loadFromJson(jsonDecode(result['data'][2]) as Map<String, dynamic>);
       ref.read(currentBoardViewStateProvider.notifier).loadFromJson(data[0]['board_view_state']);
+      ref.read(currentBoardTypeStateProvider.notifier).state = BoardType.values.firstWhere(
+        (boardType) => ref.read(currentBoardViewStateProvider)[boardType]!,
+      );
       ref.read(profileCharacterStateProvider.notifier).state = data[0]['icon'];
     }
   } catch (e) {

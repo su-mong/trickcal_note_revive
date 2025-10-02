@@ -11,33 +11,30 @@ part of 'character_state_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$CharacterStateModel {
 
- CharacterModel get character; BoardState get state;
+ CharacterBoardModel get characterBoard; BoardState get state;
 /// Create a copy of CharacterStateModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $CharacterStateModelCopyWith<CharacterStateModel> get copyWith => _$CharacterStateModelCopyWithImpl<CharacterStateModel>(this as CharacterStateModel, _$identity);
 
-  /// Serializes this CharacterStateModel to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterStateModel&&(identical(other.character, character) || other.character == character)&&(identical(other.state, state) || other.state == state));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterStateModel&&(identical(other.characterBoard, characterBoard) || other.characterBoard == characterBoard)&&(identical(other.state, state) || other.state == state));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
-int get hashCode => Object.hash(runtimeType,character,state);
+int get hashCode => Object.hash(runtimeType,characterBoard,state);
 
 @override
 String toString() {
-  return 'CharacterStateModel(character: $character, state: $state)';
+  return 'CharacterStateModel(characterBoard: $characterBoard, state: $state)';
 }
 
 
@@ -48,11 +45,11 @@ abstract mixin class $CharacterStateModelCopyWith<$Res>  {
   factory $CharacterStateModelCopyWith(CharacterStateModel value, $Res Function(CharacterStateModel) _then) = _$CharacterStateModelCopyWithImpl;
 @useResult
 $Res call({
- CharacterModel character, BoardState state
+ CharacterBoardModel characterBoard, BoardState state
 });
 
 
-$CharacterModelCopyWith<$Res> get character;
+$CharacterBoardModelCopyWith<$Res> get characterBoard;
 
 }
 /// @nodoc
@@ -65,10 +62,10 @@ class _$CharacterStateModelCopyWithImpl<$Res>
 
 /// Create a copy of CharacterStateModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? character = null,Object? state = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? characterBoard = null,Object? state = null,}) {
   return _then(_self.copyWith(
-character: null == character ? _self.character : character // ignore: cast_nullable_to_non_nullable
-as CharacterModel,state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
+characterBoard: null == characterBoard ? _self.characterBoard : characterBoard // ignore: cast_nullable_to_non_nullable
+as CharacterBoardModel,state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
 as BoardState,
   ));
 }
@@ -76,10 +73,10 @@ as BoardState,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$CharacterModelCopyWith<$Res> get character {
+$CharacterBoardModelCopyWith<$Res> get characterBoard {
   
-  return $CharacterModelCopyWith<$Res>(_self.character, (value) {
-    return _then(_self.copyWith(character: value));
+  return $CharacterBoardModelCopyWith<$Res>(_self.characterBoard, (value) {
+    return _then(_self.copyWith(characterBoard: value));
   });
 }
 }
@@ -163,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CharacterModel character,  BoardState state)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CharacterBoardModel characterBoard,  BoardState state)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CharacterStateModel() when $default != null:
-return $default(_that.character,_that.state);case _:
+return $default(_that.characterBoard,_that.state);case _:
   return orElse();
 
 }
@@ -184,10 +181,10 @@ return $default(_that.character,_that.state);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CharacterModel character,  BoardState state)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CharacterBoardModel characterBoard,  BoardState state)  $default,) {final _that = this;
 switch (_that) {
 case _CharacterStateModel():
-return $default(_that.character,_that.state);case _:
+return $default(_that.characterBoard,_that.state);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +201,10 @@ return $default(_that.character,_that.state);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CharacterModel character,  BoardState state)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CharacterBoardModel characterBoard,  BoardState state)?  $default,) {final _that = this;
 switch (_that) {
 case _CharacterStateModel() when $default != null:
-return $default(_that.character,_that.state);case _:
+return $default(_that.characterBoard,_that.state);case _:
   return null;
 
 }
@@ -216,13 +213,13 @@ return $default(_that.character,_that.state);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _CharacterStateModel implements CharacterStateModel {
-  const _CharacterStateModel(this.character, this.state);
-  factory _CharacterStateModel.fromJson(Map<String, dynamic> json) => _$CharacterStateModelFromJson(json);
+  const _CharacterStateModel(this.characterBoard, this.state);
+  
 
-@override final  CharacterModel character;
+@override final  CharacterBoardModel characterBoard;
 @override final  BoardState state;
 
 /// Create a copy of CharacterStateModel
@@ -231,23 +228,20 @@ class _CharacterStateModel implements CharacterStateModel {
 @pragma('vm:prefer-inline')
 _$CharacterStateModelCopyWith<_CharacterStateModel> get copyWith => __$CharacterStateModelCopyWithImpl<_CharacterStateModel>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$CharacterStateModelToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CharacterStateModel&&(identical(other.character, character) || other.character == character)&&(identical(other.state, state) || other.state == state));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CharacterStateModel&&(identical(other.characterBoard, characterBoard) || other.characterBoard == characterBoard)&&(identical(other.state, state) || other.state == state));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
-int get hashCode => Object.hash(runtimeType,character,state);
+int get hashCode => Object.hash(runtimeType,characterBoard,state);
 
 @override
 String toString() {
-  return 'CharacterStateModel(character: $character, state: $state)';
+  return 'CharacterStateModel(characterBoard: $characterBoard, state: $state)';
 }
 
 
@@ -258,11 +252,11 @@ abstract mixin class _$CharacterStateModelCopyWith<$Res> implements $CharacterSt
   factory _$CharacterStateModelCopyWith(_CharacterStateModel value, $Res Function(_CharacterStateModel) _then) = __$CharacterStateModelCopyWithImpl;
 @override @useResult
 $Res call({
- CharacterModel character, BoardState state
+ CharacterBoardModel characterBoard, BoardState state
 });
 
 
-@override $CharacterModelCopyWith<$Res> get character;
+@override $CharacterBoardModelCopyWith<$Res> get characterBoard;
 
 }
 /// @nodoc
@@ -275,10 +269,10 @@ class __$CharacterStateModelCopyWithImpl<$Res>
 
 /// Create a copy of CharacterStateModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? character = null,Object? state = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? characterBoard = null,Object? state = null,}) {
   return _then(_CharacterStateModel(
-null == character ? _self.character : character // ignore: cast_nullable_to_non_nullable
-as CharacterModel,null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
+null == characterBoard ? _self.characterBoard : characterBoard // ignore: cast_nullable_to_non_nullable
+as CharacterBoardModel,null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
 as BoardState,
   ));
 }
@@ -287,10 +281,10 @@ as BoardState,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$CharacterModelCopyWith<$Res> get character {
+$CharacterBoardModelCopyWith<$Res> get characterBoard {
   
-  return $CharacterModelCopyWith<$Res>(_self.character, (value) {
-    return _then(_self.copyWith(character: value));
+  return $CharacterBoardModelCopyWith<$Res>(_self.characterBoard, (value) {
+    return _then(_self.copyWith(characterBoard: value));
   });
 }
 }

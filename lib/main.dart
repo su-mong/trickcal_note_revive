@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -6,9 +7,10 @@ import 'pages/board_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await Supabase.initialize(
-    url: 'https://hyrzcblouwxnydealspa.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5cnpjYmxvdXd4bnlkZWFsc3BhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwNjYyMDEsImV4cCI6MjA3NDY0MjIwMX0.6lQgXQpYfNZcVIny6t4SWC51mMY-CccqH_3PEtyPhu0',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANONKEY']!,
   );
 
   runApp(
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '트릭컬노트 리바이브!',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'OneMobilePop',
         colorScheme: ColorScheme.fromSeed(

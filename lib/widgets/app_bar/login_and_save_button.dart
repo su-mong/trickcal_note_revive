@@ -55,7 +55,7 @@ class LoginAndSaveButton extends ConsumerWidget {
     try {
       await supabase.auth.signInWithOAuth(
         OAuthProvider.google,
-        redirectTo: 'http://localhost:63060/',
+        redirectTo: 'http://localhost:63877/',
         authScreenLaunchMode: LaunchMode.platformDefault,
       );
     } catch (e) {

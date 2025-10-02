@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trickcal_note_revive/utils/responsive.dart';
-import 'package:trickcal_note_revive/widgets/app_bar/changing_is_show_name_button.dart';
+import 'package:trickcal_note_revive/widgets/settings/changing_is_show_name_button.dart';
 import 'package:trickcal_note_revive/widgets/app_bar/login_and_save_button.dart';
 import 'package:trickcal_note_revive/widgets/app_bar/profile_icon_image_view.dart';
 
@@ -16,7 +16,6 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const ChangingIsShowNameButton(),
           const Spacer(),
           const ProfileIconImageView(),
           const SizedBox(width: 12),

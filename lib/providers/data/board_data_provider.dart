@@ -3,9 +3,9 @@ import 'package:trickcal_note_revive/models/board_constants.dart';
 
 import '../../models/board_state.dart';
 import '../../models/board_type.dart';
+import '../../models/character_board_model.dart';
 import '../../models/character_state_model.dart';
 import '../../models/character_type.dart';
-import '../../models/character_model.dart';
 
 class BoardDataStateNotifier extends StateNotifier<Map<BoardType, Map<CharacterType, List<CharacterStateModel>>>> {
   final int boardNum;
@@ -83,12 +83,12 @@ class BoardDataStateNotifier extends StateNotifier<Map<BoardType, Map<CharacterT
 
   BoardState changeState({
     required BoardType boardType,
-    required CharacterModel character,
+    required CharacterBoardModel characterBoard,
   }) {
-    final characterStateModelIndex = state[boardType]![character.type]!.lastIndexWhere(
-      ((characterState) => character == characterState.character),
+    final characterStateModelIndex = state[boardType]![characterBoard.character.type]!.lastIndexWhere(
+      ((characterState) => characterBoard == characterState.characterBoard),
     );
-    final characterStateModel = state[boardType]![character.type]![characterStateModelIndex];
+    final characterStateModel = state[boardType]![characterBoard.character.type]![characterStateModelIndex];
 
     late BoardState newState;
 
@@ -99,11 +99,11 @@ class BoardDataStateNotifier extends StateNotifier<Map<BoardType, Map<CharacterT
       for(var boardIndex = 0; boardIndex < state.values.length; boardIndex++) {
         for(var characterStateIndex = 0; characterStateIndex < state.values.elementAt(boardIndex).length; characterStateIndex++) {
           final characterIndex = state.values.elementAt(boardIndex).values.elementAt(characterStateIndex).lastIndexWhere(
-            (characterState) => character == characterState.character && BoardState.notHave == characterState.state,
+            (characterState) => characterBoard == characterState.characterBoard && BoardState.notHave == characterState.state,
           );
           if(characterIndex > -1) {
             state.values.elementAt(boardIndex).values.elementAt(characterStateIndex)[characterIndex] = CharacterStateModel(
-              characterStateModel.character,
+              characterStateModel.characterBoard,
               newState,
             );
           }
@@ -116,8 +116,8 @@ class BoardDataStateNotifier extends StateNotifier<Map<BoardType, Map<CharacterT
         newState = BoardState.inactive;
       }
 
-      state[boardType]![character.type]![characterStateModelIndex] = CharacterStateModel(
-        characterStateModel.character,
+      state[boardType]![characterBoard.character.type]![characterStateModelIndex] = CharacterStateModel(
+        characterStateModel.characterBoard,
         newState,
       );
     }

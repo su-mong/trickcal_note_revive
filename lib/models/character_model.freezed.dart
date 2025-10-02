@@ -11,7 +11,6 @@ part of 'character_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$CharacterModel {
 
@@ -22,8 +21,6 @@ mixin _$CharacterModel {
 @pragma('vm:prefer-inline')
 $CharacterModelCopyWith<CharacterModel> get copyWith => _$CharacterModelCopyWithImpl<CharacterModel>(this as CharacterModel, _$identity);
 
-  /// Serializes this CharacterModel to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.engName, engName) || other.engName == engName)&&(identical(other.type, type) || other.type == type));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,name,engName,type);
 
@@ -209,11 +206,11 @@ return $default(_that.id,_that.name,_that.engName,_that.type);case _:
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _CharacterModel implements CharacterModel {
   const _CharacterModel({required this.id, required this.name, required this.engName, required this.type});
-  factory _CharacterModel.fromJson(Map<String, dynamic> json) => _$CharacterModelFromJson(json);
+
 
 @override final  int id;
 @override final  String name;
@@ -226,17 +223,14 @@ class _CharacterModel implements CharacterModel {
 @pragma('vm:prefer-inline')
 _$CharacterModelCopyWith<_CharacterModel> get copyWith => __$CharacterModelCopyWithImpl<_CharacterModel>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$CharacterModelToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _CharacterModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.engName, engName) || other.engName == engName)&&(identical(other.type, type) || other.type == type));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,name,engName,type);
 
@@ -244,8 +238,6 @@ int get hashCode => Object.hash(runtimeType,id,name,engName,type);
 String toString() {
   return 'CharacterModel(id: $id, name: $name, engName: $engName, type: $type)';
 }
-
-
 }
 
 /// @nodoc
